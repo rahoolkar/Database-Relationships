@@ -9,6 +9,7 @@ async function main() {
 const userSchema = new mongoose.Schema({
     name:String,
     addresses:[{
+        _id:false,
         location:String,
         city:String
     }]
