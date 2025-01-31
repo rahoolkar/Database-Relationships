@@ -29,11 +29,6 @@ const customerSchema = new mongoose.Schema({
 
 const Customer = mongoose.model("Customer",customerSchema);
 
-// let cusotmer1 = new Customer({
-//     name:"Rahul Kar"
-// })
-
-
 // Order.findOne({item:"Bread Pakora"}).then((result)=>{
 //     let o1 = result;
 //     cusotmer1.orders.push(o1);
@@ -56,8 +51,26 @@ const Customer = mongoose.model("Customer",customerSchema);
 // })
 
 
+async function fillCustomer() {
+
+    let customer1 = new Customer({
+        name:"Rahul Kar"
+    })
+    let o1 = await Order.findOne({item:"Chole Bhature"});
+    customer1.orders.push(o1);
+
+    let o2 = await Order.findOne({item:"Bread Pakora"});
+    customer1.orders.push(o2);
+
+    let result = await customer1.save();
+    console.log(result);
+
+}
+
+//fillCustomer();
+
 async function findCustomers() {
-    let answer = await Customer.find({});
+    let answer = await Customer.find({}).populate("orders");
     console.log(answer);
 }
 
